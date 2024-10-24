@@ -1,13 +1,11 @@
 import Fastify from "fastify";
-import cors from "fastify-cors";
+import cors from "@fastify/cors";
 import { AppDataSource } from "../data-source";
-import userRecruiterRoutes from "../userRecruiter/userRectuiter.router";
+import userRecruiterRoutes from "../userRecruiter/userRecruiter.router";
 const dotenv = require("dotenv");
 dotenv.config();
 
 const app = Fastify({ logger: true });
-
-// Register CORS plugin
 app.register(cors, {
     origin: (origin, callback) => {
         const urls_allowed = process.env.CORS_URLS!.split(","); //!posible error
@@ -16,7 +14,7 @@ app.register(cors, {
         if (!origin || urls_allowed.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
-            callback(new Error("No permitido por CORS"));
+            callback(new Error("No permitido por CORS"), false);
         }
     }
 });
