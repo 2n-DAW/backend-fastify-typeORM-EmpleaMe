@@ -12,7 +12,7 @@ export const userRecruiterViewer = (user: UsersRecruiter) => {
     return userView;
 }
 
-export const userLoginRecruiterViewer = (user: UsersRecruiter, token: string) => {
+export const userRecruiterLoginViewer = (user: UsersRecruiter, token: string) => {
     const userView = {
         user: {
             email: user.email,

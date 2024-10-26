@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node src/api/server.ts"
+    "start": "node ./dist/index.js",
+    "dev": "nodemon"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,7 @@
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "fastify": "^5.0.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^5.9.2",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20"
@@ -22,7 +23,9 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/fastify-cors": "^2.1.2",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.7.9",
+    "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   }

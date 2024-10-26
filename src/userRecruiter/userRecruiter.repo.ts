@@ -17,3 +17,8 @@ export const userRecruiterRegisterRepo = async (username: string, password: stri
     const resp = await AppDataSource.getMongoRepository(UsersRecruiter).save(user);
     return resp;
 };
+
+export const userRecruiterSearchRepo = async (email: string): Promise<UsersRecruiter | null> => {
+    const user = await AppDataSource.getMongoRepository(UsersRecruiter).findOne({ where: { email } });
+    return user;
+}
