@@ -1,5 +1,8 @@
-import { UsersRecruiter } from '../shared/entities/userRecruiter.entity';
+//Conexion
 import { AppDataSource } from '../data-source';
+
+//Entities
+import { UsersRecruiter } from '../shared/entities/userRecruiter.entity';
 
 export const userRecruiterRegisterRepo = async (username: string, password: string, email: string): Promise<UsersRecruiter> => {
     const user = new UsersRecruiter();

@@ -1,14 +1,10 @@
-import { FastifyRequest, FastifyReply } from 'fastify';
+import { FastifyReply } from 'fastify';
 import jwt from 'jsonwebtoken';
+import { IMiddlewareRequest } from '../interfaces/middlewareRequest.inerface';
 
-interface CustomRequest extends FastifyRequest {
-    userId?: string;
-    userEmail?: string;
-    userHashedPwd?: string;
-}
 
-const verifyJWT = async (req: CustomRequest, reply: FastifyReply) => {
-    const authHeader = req.headers.authorization;
+const verifyJWT = async (request: IMiddlewareRequest, reply: FastifyReply) => {
+    const authHeader = request.headers.authorization;
 
     console.log('NoOptional', authHeader);
 
@@ -21,9 +17,9 @@ const verifyJWT = async (req: CustomRequest, reply: FastifyReply) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as any;
 
-        req.userId = decoded.user.id;
-        req.userEmail = decoded.user.email;
-        req.userHashedPwd = decoded.user.password;
+        request.userId = decoded.user.id || '';
+        request.userEmail = decoded.user.email || '';
+        request.userHashedPwd = decoded.user.password || '';
     } catch (err) {
         return reply.status(403).send({ message: 'Forbidden' });
     }

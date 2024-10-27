@@ -1,11 +1,21 @@
-import { resp } from "../shared/utils/utils";
+//Utils
 import bcrypt from 'bcrypt';
-import { userRecruiterRegisterRepo, userRecruiterSearchRepo } from "./userRecruiter.repo";
-import { userRecruiterViewer, userRecruiterLoginViewer } from "./userRecruiter.view";
-import { IResp } from "../shared/interfaces/respUtils.interface";
-import { FastifyRequest } from "fastify";
-import { IUserRecruiterRequest } from "./dto/userRecruiterRequest.interface";
 import jwt = require("jsonwebtoken");
+import { resp } from "../shared/utils/utils";
+
+//Interfaces
+import { FastifyRequest } from "fastify";
+import { IResp } from "../shared/interfaces/respUtils.interface";
+import { IUserRecruiterRequest } from "./dto/userRecruiterRequest.interface";
+import { IMiddlewareRequest } from "../shared/interfaces/middlewareRequest.inerface";
+
+//Repositories
+import { userRecruiterRegisterRepo, userRecruiterSearchRepo } from "./userRecruiter.repo";
+
+//Views
+import { userRecruiterViewer, userRecruiterLoginViewer } from "./userRecruiter.view";
+
+
 
 export const userRecruiterRegisterService = async (data: FastifyRequest): Promise<IResp> => {
     const { email, username, password } = (data.body as IUserRecruiterRequest).user;
@@ -43,3 +53,12 @@ export const userRecruiterLoginService = async (data: FastifyRequest): Promise<I
     }
 
 }
+
+
+export const getCurrentUserService = async (data: IMiddlewareRequest): Promise<IResp> => {
+    const { userEmail } = data;
+    const user = await userRecruiterSearchRepo(userEmail!); //Existirá si o si ya que en este punto ya a passado por el middleware
+    if (!user) return resp(500, { message: "Usuario inexistente" });
+    const user_view = await userRecruiterViewer(user);
+    return resp(200, user_view);
+};
