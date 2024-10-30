@@ -8,9 +8,11 @@ import verifyJWT from "../shared/middlewares/verifyJWT";
 import { userLogin, userRegister, getCurrentUser } from "./userRecruiter.controller";
 
 
-export default async function userRercruiterRoutes(routes: FastifyInstance) {
+const userRercruiterRoutes = (routes: FastifyInstance): void => {
     routes.post("/user", userRegister);
     routes.post("/user/login", userLogin);
     routes.get("/user", { preHandler: verifyJWT }, getCurrentUser);
 }
+
+export default userRercruiterRoutes;
 
