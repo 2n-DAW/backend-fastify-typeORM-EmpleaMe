@@ -1,9 +1,10 @@
 import { FastifyReply } from 'fastify';
 import jwt from 'jsonwebtoken';
 import { IMiddlewareRequest } from '../interfaces/middlewareRequest.inerface';
+import { IJwtTokenDecode } from '../interfaces/jwtTokenDecode.interface';
 
 
-const verifyJWT = async (request: IMiddlewareRequest, reply: FastifyReply) => {
+const verifyJWT = async (request: IMiddlewareRequest, reply: FastifyReply): Promise<void> => {
     const authHeader = request.headers.authorization;
 
     console.log('NoOptional', authHeader);
@@ -15,7 +16,7 @@ const verifyJWT = async (request: IMiddlewareRequest, reply: FastifyReply) => {
     const token = authHeader.split(' ')[1];
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as any;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as IJwtTokenDecode;
 
         request.userId = decoded.user.id || '';
         request.userEmail = decoded.user.email || '';

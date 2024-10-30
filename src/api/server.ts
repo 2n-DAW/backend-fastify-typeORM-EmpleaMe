@@ -11,7 +11,7 @@ app.register(cors, {
         const urls_allowed = process.env.CORS_URLS!.split(","); //!posible error
 
         //comprobamos que la url se encuentre en el array
-        if (!origin || urls_allowed.indexOf(origin) !== -1) {
+        if (!origin || !urls_allowed.includes(origin)) {
             callback(null, true);
         } else {
             callback(new Error("No permitido por CORS"), false);
