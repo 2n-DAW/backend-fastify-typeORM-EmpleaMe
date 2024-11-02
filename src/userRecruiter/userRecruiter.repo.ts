@@ -1,11 +1,13 @@
 //Conexion
+import { ObjectId } from 'mongodb';
 import { AppDataSource } from '../data-source';
 
 //Entities
 import { UsersRecruiter } from '../shared/entities/userRecruiter.entity';
 
-export const userRecruiterRegisterRepo = async (username: string, password: string, email: string): Promise<UsersRecruiter> => {
+export const userRecruiterRegisterRepo = async (username: string, password: string, email: string, userId: ObjectId): Promise<UsersRecruiter> => {
     const user = new UsersRecruiter();
+    user.userId = userId;
     user.username = username;
     user.password = password;
     user.email = email;

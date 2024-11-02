@@ -18,10 +18,10 @@ import { userRecruiterViewer, userRecruiterLoginViewer } from "./userRecruiter.v
 
 
 export const userRecruiterRegisterService = async (data: FastifyRequest): Promise<IResp> => {
-    const { email, username, password } = (data.body as IUserRecruiterRequest).user;
-    if (!email || !username || !password) return resp(400, { message: "Todos los campos son necesarios" });
+    const { email, username, password, userId } = (data.body as IUserRecruiterRequest).user;
+    if (!email || !username || !password || !userId) return resp(400, { message: "Todos los campos son necesarios" });
     const hashed_password = await bcrypt.hash(password, 10);
-    const user_repo = await userRecruiterRegisterRepo(username, hashed_password, email);
+    const user_repo = await userRecruiterRegisterRepo(username, hashed_password, email, userId);
     if (!user_repo) return resp(500, { message: "Ocurrió un error" });
     const user_view = await userRecruiterViewer(user_repo);
     return resp(200, user_view);

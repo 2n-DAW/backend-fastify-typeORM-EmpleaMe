@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import { AppDataSource } from "../data-source";
