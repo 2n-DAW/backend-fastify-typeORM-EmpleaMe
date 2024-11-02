@@ -7,6 +7,7 @@ export const inscriptionUpdateRepo = async (user_email: string, job: string, sta
     const result = await inscriptionRepository.findOneAndUpdate(
         { user_email, job },
         { $set: { status } },
+        { returnDocument: 'after' }
     );
 
     if (!result) return null;
