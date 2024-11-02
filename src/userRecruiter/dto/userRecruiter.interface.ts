@@ -2,6 +2,7 @@ import { ObjectId } from "typeorm";
 
 export interface IUserRecruiter {
     _id: ObjectId;
+    userId: ObjectId;
     company: string;
     createdAt: Date;
     email: string;

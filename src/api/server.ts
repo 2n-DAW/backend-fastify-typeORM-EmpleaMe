@@ -1,7 +1,9 @@
+import 'reflect-metadata';
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import { AppDataSource } from "../data-source";
 import userRecruiterRoutes from "../userRecruiter/userRecruiter.router";
+import inscripionRoutes from "../inscriptions/inscription.router";
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -20,6 +22,7 @@ app.register(cors, {
 });
 
 app.register(userRecruiterRoutes);
+app.register(inscripionRoutes);
 
 const start = async () => {
     try {
