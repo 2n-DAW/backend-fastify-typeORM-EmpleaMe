@@ -8,7 +8,7 @@ import { IResp } from "../shared/interfaces/respUtils.interface";
 
 
 //Repositories
-import { inscriptionUpdateRepo } from "./inscription.repo";
+import { inscriptionUpdateRepo, inscriptionListRepo } from "./inscription.repo";
 
 //Views
 import { inscriptionViewer } from "./insciption.view";
@@ -24,3 +24,11 @@ export const inscriptionUpdateService = async (data: FastifyRequest): Promise<IR
     const inscription_view = await inscriptionViewer(inscription_repo);
     return resp(200, inscription_view);
 };
+
+
+export const inscriptionlistService = async (data: FastifyRequest): Promise<IResp> => {
+    const inscription_repo = await inscriptionListRepo();
+    if (!inscription_repo) return resp(500, { message: "Ocurrió un error" });
+
+    return resp(200, inscription_repo);
+}
