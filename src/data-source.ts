@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import { UsersRecruiter } from "./shared/entities/userRecruiter.entity";
+import { Inscription } from "./shared/entities/inscription.entity";
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -11,5 +12,5 @@ export const AppDataSource = new DataSource({
     useUnifiedTopology: true,
     synchronize: true, //Se necesita para que las claves sean realmente unicas
     logging: true,
-    entities: [UsersRecruiter],
+    entities: [UsersRecruiter, Inscription],
 });
