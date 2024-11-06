@@ -8,6 +8,7 @@ export const userRecruiterViewer = (user: UsersRecruiter) => {
             bio: user.bio,
             image: user.image,
         },
+        type: "recruiter"
     };
     return userView;
 }
