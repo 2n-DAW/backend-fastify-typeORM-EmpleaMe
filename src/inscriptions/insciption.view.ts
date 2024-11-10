@@ -6,6 +6,7 @@ export const inscriptionViewer = (user: Inscription) => {
             user_email: user.user_email,
             job: user.job,
             status: user.status,
+            createdAt: user.createdAt,
         },
     };
     return insciptionView;

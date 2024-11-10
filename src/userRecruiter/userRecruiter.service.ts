@@ -31,12 +31,13 @@ export const userRecruiterLoginService = async (data: FastifyRequest): Promise<I
     const { email, password } = (data.body as IUserRecruiterRequest).user;
     const user = await userRecruiterSearchRepo(email);
     if (!user) return resp(500, { message: "Usuario inexistente" });
+    console.log(user)
     const match = await bcrypt.compare(password, user.password);
     if (!match) return resp(500, { message: "Contraseña incorrecta" });
     if (process.env.JWT_SECRET !== undefined) {
         const token = jwt.sign({
             user: {
-                id: user._id,
+                id: user.userId.toString(),
                 username: user.username,
                 email: user.email,
                 password: user.password,
